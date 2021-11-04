@@ -96,7 +96,6 @@ function Login() {
       </Snackbar>
       <CssBaseline />
       <div className={classes.paper}>
-      <Avatar src="https://drive.google.com/file/d/1o9M1Fni3RoAG9DJB_3-hch6oVxuA0YXo/view?usp=drivesdk" />
         <Typography component="h1" variant="h5">
           คลินิกทันตกรรม ฟันดี
 

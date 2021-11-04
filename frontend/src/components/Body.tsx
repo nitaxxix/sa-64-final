@@ -70,7 +70,10 @@ export default function Body() {
 
             method: "GET",
 
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json",
+            },
 
 
         };
@@ -106,7 +109,10 @@ export default function Body() {
 
             method: "GET",
 
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json",
+            },
 
 
         };
@@ -141,7 +147,10 @@ export default function Body() {
 
             method: "GET",
 
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json",
+            },
 
 
         };
@@ -290,7 +299,10 @@ export default function Body() {
 
                 method: "POST",
 
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json",
+                },
 
                 body: JSON.stringify(data),
 

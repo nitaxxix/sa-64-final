@@ -5,6 +5,8 @@ import (
 
 	"github.com/nitaxxix/sa-64-final/entity"
 
+	"github.com/nitaxxix/sa-64-final/middlewares"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,60 +16,66 @@ func main() {
 
 	r := gin.Default()
 	r.Use(CORSMiddleware())
+	api := r.Group("")
+	{
+		protected := api.Use(middlewares.Authorizes())
+		{
 
-	// Appoint
-	r.GET("/appoints", controller.ListAppoint)
-	r.POST("/appoint", controller.CreateAppoint)
+			// Appoint
+			protected.GET("/appoints", controller.ListAppoint)
+			protected.POST("/appoint", controller.CreateAppoint)
 
-	// Insurance
-	r.GET("/insrs", controller.ListInsurance)
+			// Insurance
+			protected.GET("/insrs", controller.ListInsurance)
+			protected.POST("/insr", controller.CreateInsurance)
 
-	r.POST("/insr", controller.CreateInsurance)
+			// Job
+			protected.GET("/jobs", controller.ListJob)
 
-	// Job
-	r.GET("/jobs", controller.ListJob)
+			protected.POST("/job", controller.CreateJob)
 
-	r.POST("/job", controller.CreateJob)
+			// MedicalProduct
+			protected.GET("/medical_products", controller.ListMedicalProduct)
+			protected.POST("/medical_product", controller.CreateMedicalProduct)
 
-	// MedicalProduct
-	r.GET("/medical_products", controller.ListMedicalProduct)
-	r.POST("/medical_product", controller.CreateMedicalProduct)
+			// MedRecord
+			protected.GET("/api/MedRec", controller.ListMedRecord)
+			protected.POST("/api/submit", controller.CreateMedRecord)
 
-	// MedRecord
-	r.GET("/api/MedRec", controller.ListMedRecord)
-	r.POST("/api/submit", controller.CreateMedRecord)
+			// Patient
+			protected.GET("/patients", controller.ListPatient)
+			protected.POST("/patient", controller.CreatePatient)
 
-	// Patient
-	r.GET("/patients", controller.ListPatient)
-	r.POST("/patient", controller.CreatePatient)
+			// RemedyType
+			protected.GET("/remedy_types", controller.ListRemedyType)
+			protected.POST("/remedy_type", controller.CreateRemedyType)
 
-	// RemedyType
-	r.GET("/remedy_types", controller.ListRemedyType)
-	r.POST("/remedy_type", controller.CreateRemedyType)
+			// Role
+			protected.GET("/roles", controller.ListRole)
+			protected.POST("/role", controller.CreateRole)
 
-	// Role
-	r.GET("/roles", controller.ListRole)
-	r.POST("/role", controller.CreateRole)
+			// Screening
+			protected.GET("/screenings", controller.ListScreening)
+			protected.POST("/screening", controller.CreateScreening)
 
-	// Screening
-	r.GET("/screenings", controller.ListScreening)
-	r.POST("/screening", controller.CreateScreening)
+			// Sex
+			protected.GET("/sexs", controller.ListSex)
+			protected.POST("/sex", controller.CreateSex)
 
-	// Sex
-	r.GET("/sexs", controller.ListSex)
-	r.POST("/sex", controller.CreateSex)
+			// Treatment
+			protected.POST("/treatmentRecord", controller.CreateTreatment)
 
-	// Treatment
-	r.POST("/treatmentRecord", controller.CreateTreatment)
+			// User
+			protected.GET("/users", controller.ListUser)
+			protected.GET("/user/dentist/:id", controller.GetUserDentist)
+			protected.GET("/user/dentistass", controller.GetUserDentistass)
+			protected.GET("/user/nurse", controller.GetUserNurse)
+			protected.GET("/user/pharmacist", controller.GetUserPharmacist)
+			protected.GET("/user/financial", controller.GetUserFinancial)
+			protected.POST("/user", controller.CreateUser)
 
-	// User
-	r.GET("/users", controller.ListUser)
-	r.GET("/user/dentist/:id", controller.GetUserDentist)
-	r.GET("/user/dentistass", controller.GetUserDentistass)
-	r.GET("/user/nurse", controller.GetUserNurse)
-	r.GET("/user/pharmacist", controller.GetUserPharmacist)
-	r.GET("/user/financial", controller.GetUserFinancial)
-	r.POST("/user", controller.CreateUser)
+		}
+	}
 
 	// Authentication Routes
 	r.POST("/login", controller.Login)
